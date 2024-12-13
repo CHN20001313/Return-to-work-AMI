@@ -49,9 +49,9 @@ with col1:
     occupation = st.selectbox("Occupation", options=list(occupation_options.keys()))
     income = st.selectbox("Income Level", options=list(income_options.keys()))
     cpx = st.selectbox("Phase II Cardiac Rehabilitation", options=list(cpx_options.keys()))
-    FPG = st.number_input("Fasting Plasma Glucose (FPG, mg/dL)", min_value=0.0, max_value=50.0, value=0.0, step=0.1)
+    FPG = st.number_input("Fasting Plasma Glucose (FPG, mmol/L)", min_value=0.0, max_value=50.0, value=0.0, step=0.1)
     age = st.number_input("Age (years)", min_value=18, max_value=120, value=30, step=1)
-    crea = st.number_input("Creatinine Level (mg/dL)", min_value=0.0, max_value=1000.0, value=0.0, step=0.1)
+    crea = st.number_input("Creatinine Level (umol/L)", min_value=0.0, max_value=1000.0, value=0.0, step=0.1)
 
     if st.button("Predict"):
         with st.spinner("Calculating..."):
