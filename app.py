@@ -33,7 +33,7 @@ st.set_page_config(layout="wide")
 # 页面标题和简介
 st.title("AMI Return to Work Probability Predictor")
 st.markdown("""
-This tool predicts the likelihood of returning to work after an acute myocardial infarction (AMI) based on patient characteristics.
+This tool predicts the likelihood of returning to work after acute myocardial infarction (AMI) based on patient characteristics.
 
 **Instructions:**
 - Fill in your details on the left.
@@ -76,29 +76,31 @@ with col1:
         if predicted_probability < 0.237482:
             risk_group = "Low Return to Work Probability"
             risk_color = "red"
-            advice = "You are at low risk. Continue maintaining a healthy lifestyle."
+            advice = (
+                "You have a low probability of returning to work. Please consult a healthcare professional as soon as possible "
+                "for detailed evaluation and treatment guidance."
+            )
         elif 0.237482 <= predicted_probability <= 0.435475:
             risk_group = "Medium Return to Work Probability"
             risk_color = "yellow"
             advice = (
-                "You are at medium risk. It is recommended to monitor your health closely "
+                "Your probability of returning to work is moderate. It is recommended to monitor your health closely "
                 "and consider consulting a healthcare professional for further evaluation."
             )
         else:
             risk_group = "High Return to Work Probability"
             risk_color = "green"
-            advice = (
-                "You are at high risk. Please consult a healthcare professional as soon as possible "
-                "for detailed evaluation and treatment guidance."
-            )
+            advice = "You have a high probability of returning to work."
+
+
 
         # 显示结果在右侧
         with col2:
             st.header("Prediction Results")
-            st.markdown(
-                f"<h3 style='font-size:24px;'>Prediction Probability: {predicted_probability * 100:.2f}%</h3>",
-                unsafe_allow_html=True
-            )
+            #st.markdown(
+             #   f"<h3 style='font-size:24px;'>Prediction Probability: {predicted_probability * 100:.2f}%</h3>",
+              #  unsafe_allow_html=True
+            #)
             st.markdown(
                 f"<h3 style='font-size:24px; color:{risk_color};'>Risk Group: {risk_group}</h3>",
                 unsafe_allow_html=True
@@ -106,10 +108,10 @@ with col1:
             st.write(advice)
 
             # SHAP 力图
+            st.header(
+                f"Based on feature values, predicted probability of Return to Work is {predicted_probability * 100:.2f}%")
             explainer = shap.TreeExplainer(model)
             shap_values = explainer.shap_values(pd.DataFrame(input_features, columns=feature_names))
-
-            # 绘制 SHAP 力图
             shap.force_plot(
                 explainer.expected_value,
                 shap_values[0],
