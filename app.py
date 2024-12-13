@@ -7,7 +7,7 @@ import xgboost as xgb
 import time
 # 加载 JSON 格式模型
 model = xgb.Booster()
-model.load_model("D:/Return-to-work-AMI/xgboost_model.json")
+model.load_model("xgboost_model.json")
 
 # 定义分类变量选项
 occupation_options = {
